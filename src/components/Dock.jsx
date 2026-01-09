@@ -6,14 +6,14 @@ import { useRef } from "react"
 import { Tooltip } from "react-tooltip";
 
 const Dock = () => {
-    const { openWindow, closeWindow, focusWindow, windows } = useWindowStore();
+    const { openWindow, closeWindow, windows } = useWindowStore();
     const dockRef = useRef(null);
 
     useGSAP(() => {
         const dock = dockRef.current;
         if (!dock) return () => { };
 
-        const icons = dock.querySelectorAll('.dock-icon');
+        const icons = dock.querySelectorAll('.dock-icon-wrapper');
 
         const animateIcons = (mouseX) => {
             const { left } = dock.getBoundingClientRect();
@@ -77,30 +77,39 @@ const Dock = () => {
 
     return (
         <section id="dock">
+            <div className="dock-blur-layer" /> {/* Refractive Layer */}
             <div ref={dockRef} className="dock-container">
-                {dockApps.map(({ id, name, icon, canOpen }) => (
-                    <div key={id} className="relative flex justify-center">
-                        <button
-                            type="button"
-                            className="dock-icon"
-                            aria-label={name}
-                            data-tooltip-id="dock-tooltip"
-                            data-tooltip-content={name}
-                            data-tooltip-delay-show={150}
-                            disabled={!canOpen}
-                            onClick={() => toggleApp({ id, name, icon, canOpen })}
-                        >
-                            <img
-                                src={`/images/${icon}`}
-                                alt={name}
-                                loading="lazy"
-                                className={canOpen ? "" : "opacity-60"}
-                            />
-                        </button>
-                    </div>
-                ))}
+                {dockApps.map(({ id, name, icon, canOpen }) => {
+                    const isActive = windows[id]?.isOpen;
 
-                <Tooltip id="dock-tooltip" place="top" className="tooltip" />
+                    return (
+                        <div key={id} className="relative flex flex-col items-center">
+                            <button
+                                type="button"
+                                className="dock-icon-wrapper group"
+                                aria-label={name}
+                                data-tooltip-id="dock-tooltip"
+                                data-tooltip-content={name}
+                                disabled={!canOpen}
+                                onClick={() => toggleApp({ id, name, icon, canOpen })}
+                            >
+                                <img
+                                    src={`/images/${icon}`}
+                                    alt={name}
+                                    className={`dock-icon-img ${canOpen ? "drop-shadow-xl" : "opacity-40 grayscale"}`}
+                                />
+
+                                {/* Reflection effect on icon */}
+                                <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-xl" />
+                            </button>
+
+                            {/* Active Dot Indicator */}
+                            <div className={`active-dot ${isActive ? "opacity-100 scale-100" : "opacity-0 scale-0"}`} />
+                        </div>
+                    )
+                })}
+
+                <Tooltip id="dock-tooltip" place="top" offset={25} className="dock-tooltip-custom" />
             </div>
         </section>
     )
