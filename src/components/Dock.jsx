@@ -100,11 +100,11 @@ const Dock = () => {
                                 />
 
                                 {/* Reflection effect on icon */}
-                                <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-xl" />
+                                <div className="absolute inset-0 bg-linear-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-xl" />
                             </button>
 
                             {/* Active Dot Indicator */}
-                            <div className={`active-dot ${isActive ? "opacity-100 scale-100" : "opacity-0 scale-0"}`} />
+                            <div className={`active-line ${isActive ? "active" : ""}`} />
                         </div>
                     )
                 })}

@@ -1,9 +1,11 @@
 import dayjs from "dayjs"
 import { navIcons, navLinks } from "#constants"
+import useWindowStore from "#store/window"
 
 const Navbar = () => {
+    const { openWindow } = useWindowStore();
     return (
-        <nav className="fixed top-0 w-full z-[100] border-b border-white/[0.05] bg-black/20 backdrop-blur-2xl">
+        <nav className="fixed top-0 w-full z-100 border-b border-white/5 bg-black/20 backdrop-blur-2xl">
             {/* Tinggi dinaikkan dari h-8 ke h-10 agar logo punya ruang bernapas */}
             <div className="flex justify-between items-center h-10 px-5">
 
@@ -22,8 +24,8 @@ const Navbar = () => {
                     </div>
 
                     <ul className="flex items-center gap-1">
-                        {navLinks.map(({ id, name }) => (
-                            <li key={id} className="px-3 py-1 rounded-md hover:bg-white/5 transition-all cursor-pointer group">
+                        {navLinks.map(({ id, name, type }) => (
+                            <li key={id} onClick={() => openWindow(type)} className="px-3 py-1 rounded-md hover:bg-white/5 transition-all cursor-pointer group">
                                 <p className="text-[11px] font-bold uppercase tracking-widest text-white/40 group-hover:text-red-500 transition-colors">
                                     {name}
                                 </p>
@@ -42,7 +44,7 @@ const Navbar = () => {
                         ))}
                     </ul>
 
-                    <time className="text-[11px] font-bold tracking-widest text-white/60 min-w-[120px] text-right">
+                    <time className="text-[11px] font-bold tracking-widest text-white/60 min-w-30 text-right">
                         {dayjs().format('ddd D MMM · HH:mm')}
                     </time>
                 </div>

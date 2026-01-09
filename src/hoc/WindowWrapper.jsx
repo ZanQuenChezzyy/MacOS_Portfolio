@@ -26,7 +26,14 @@ const WindowWrapper = (Component, windowKey) => {
             const el = ref.current;
             if (!el) return;
 
-            const [instance] = Draggable.create(el, { onPress: () => focusWindow(windowKey) });
+            const [instance] = Draggable.create(el, {
+                trigger: el.querySelector("#window-header"), // Hanya area header
+                onPress: () => focusWindow(windowKey),
+                // Mencegah konflik dengan klik tombol di header
+                dragClickables: false,
+                // Memastikan scroll touch tetap bekerja di luar trigger
+                allowEventDefault: true
+            });
 
             return () => instance.kill();
         }, [])
