@@ -179,7 +179,7 @@ body {
     @apply w-4xl h-[700px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-[28px] overflow-hidden;
 
     /* HAPUS background dan backdrop-filter di sini karena kita kendalikan via React State */
-    
+
     @apply border border-white/[0.1] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.9)];
 
     /* Efek kilauan di tepi window */
@@ -193,18 +193,24 @@ body {
 
     /* Hilangkan border saat tidak hover jika ingin benar-benar clean */
     &:not(:hover) {
-        border-color: transparent;
+      border-color: transparent;
     }
 
-    .blog::-webkit-scrollbar { @apply w-1; }
-    .blog::-webkit-scrollbar-track { @apply bg-transparent; }
-    .blog::-webkit-scrollbar-thumb { @apply bg-white/10 rounded-full hover:bg-red-600/50 transition-colors; }
-}
+    .blog::-webkit-scrollbar {
+      @apply w-1;
+    }
+    .blog::-webkit-scrollbar-track {
+      @apply bg-transparent;
+    }
+    .blog::-webkit-scrollbar-thumb {
+      @apply bg-white/10 rounded-full hover:bg-red-600/50 transition-colors;
+    }
+  }
 
   #terminal {
-  @apply w-xl h-[520px] absolute top-40 left-20 rounded-xl overflow-hidden;
-  @apply border border-white/10 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.8)];
-}
+    @apply w-xl h-[520px] absolute top-40 left-20 rounded-xl overflow-hidden;
+    @apply border border-white/10 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.8)];
+  }
 
   #contact {
     @apply max-w-2xl absolute top-60 left-5/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
@@ -323,10 +329,10 @@ body {
     @apply rounded-[20px] overflow-hidden;
     /* Glass Effect */
     @apply border border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.8)];
-    
+
     /* Animation Override jika perlu */
     transition: width 0.3s, height 0.3s;
-}
+  }
 
   #txtfile {
     @apply w-[500px] h-[600px] absolute top-1/2 left-[60%] -translate-x-1/2 -translate-y-1/2;
@@ -334,37 +340,37 @@ body {
     background: rgba(10, 10, 10, 0.6);
     backdrop-filter: blur(40px) saturate(180%);
     @apply border border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.9)];
-}
+  }
 
-/* Custom Scrollbar Logic */
-.custom-scrollbar::-webkit-scrollbar {
+  /* Custom Scrollbar Logic */
+  .custom-scrollbar::-webkit-scrollbar {
     @apply w-1; /* Ukuran sangat tipis (4px) agar elegan */
-}
+  }
 
-.custom-scrollbar::-webkit-scrollbar-track {
+  .custom-scrollbar::-webkit-scrollbar-track {
     @apply bg-transparent;
-}
+  }
 
-.custom-scrollbar::-webkit-scrollbar-thumb {
+  .custom-scrollbar::-webkit-scrollbar-thumb {
     @apply bg-white/10 rounded-full transition-colors;
-}
+  }
 
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     @apply bg-red-600/50;
-}
+  }
 
-/* Firefox Support */
-.custom-scrollbar {
+  /* Firefox Support */
+  .custom-scrollbar {
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
-}
+  }
 
   #imgfile {
     @apply w-auto h-auto min-w-[400px] min-h-[300px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
     @apply rounded-[18px] overflow-hidden;
     @apply border border-white/10 shadow-2xl;
     backdrop-filter: blur(60px);
-}
+  }
 
   #home {
     @apply relative z-0 max-sm:hidden;

@@ -121,29 +121,20 @@ const Terminal = () => {
                     "footnote mt-4 pt-6 border-t transition-all duration-700",
                     isHovered ? "border-white/10" : "border-transparent"
                 )}>
-                    <div className="flex items-center gap-3 mb-6">
+                    <div className="flex items-center gap-3">
                         <div className="flex items-center">
                             <span className="bg-red-600 text-white px-2 py-0.5 text-[10px] font-bold rounded-s-sm">Andereyan</span>
                             <span className="bg-white/10 text-white/80 px-2 py-0.5 text-[10px] rounded-e-sm backdrop-blur-md">~/portfolio</span>
                         </div>
-                        <p className="text-xs text-zinc-400 animate-in fade-in slide-in-from-left-2 duration-700">
-                            <div className="flex flex-col gap-2">
-                                {/* Ready Status & Cursor */}
-                                <div className="flex items-center gap-2 text-xs">
-                                    <p className="text-xs text-zinc-400 animate-in fade-in slide-in-from-left-2 duration-700">
-                                        $
-                                    </p>
-                                    <span className={clsx(
-                                        "w-2 h-4 animate-pulse transition-all duration-75",
-                                        isHovered
-                                            ? "bg-red-600 shadow-[0_0_8px_#dc2626]"
-                                            : "bg-white/10 shadow-none"
-                                    )} />
-                                </div>
-                            </div>
-                        </p>
+                        {/* PERBAIKAN TOTAL: Mengganti struktur <p> -> <div> -> <p> yang salah menjadi <div> -> <span> */}
+                        <div className="flex items-center gap-2 text-xs">
+                            <span className="text-zinc-400">$</span>
+                            <span className={clsx(
+                                "w-2 h-4 animate-pulse transition-all duration-75",
+                                isHovered ? "bg-red-600 shadow-[0_0_8px_#dc2626]" : "bg-white/10 shadow-none"
+                            )} />
+                        </div>
                     </div>
-
                 </div>
             </div>
 
