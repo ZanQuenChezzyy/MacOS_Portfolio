@@ -16,7 +16,7 @@ const Text = () => {
         <div className="relative h-full flex flex-col font-sans text-zinc-100 selection:bg-red-500/30 overflow-hidden bg-[#0a0a0a]/80">
 
             {/* --- LIQUID HEADER --- */}
-            <div id="window-header" className="relative z-30 bg-white/[0.03] backdrop-blur-2xl border-b border-white/5 px-4 py-3 flex items-center justify-between shadow-lg">
+            <div id="window-header" className="relative z-30 bg-white/3 backdrop-blur-2xl border-b border-white/5 px-4 py-3 flex items-center justify-between shadow-lg">
                 <div className="flex items-center gap-4">
                     <WindowControls target="txtfile" />
                 </div>
@@ -35,7 +35,7 @@ const Text = () => {
                     {/* Header Image */}
                     {image && (
                         <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl group">
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10" />
+                            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent z-10" />
                             <img src={image} alt={name} className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700" />
                             <div className="absolute bottom-4 left-6 z-20">
                                 <h2 className="text-2xl font-bold text-white tracking-tight">{name}</h2>

@@ -80,7 +80,7 @@ const Finder = () => {
             {/* --- FINDER HEADER --- */}
             <div id='window-header' className={clsx(
                 "relative z-30 flex items-center justify-between px-4 py-3 border-b border-white/5 transition-colors duration-500",
-                isHovered ? "bg-white/[0.02]" : "bg-transparent"
+                isHovered ? "bg-white/2" : "bg-transparent"
             )}>
                 <div className="flex items-center gap-6 w-1/4">
                     <WindowControls target="finder" />
@@ -106,25 +106,59 @@ const Finder = () => {
 
                 {/* SIDEBAR (Clean Implementation) */}
                 <div className={clsx(
-                    'w-48 flex flex-col border-r border-white/5 transition-all duration-500',
+                    'w-48 flex flex-col border-r border-white/5 transition-all duration-500 h-full', // Tambahkan h-full
                     isHovered ? "bg-black/20 backdrop-blur-md" : "bg-transparent backdrop-blur-none"
                 )}>
 
                     {/* List Area */}
-                    <div className="flex-1 overflow-y-hidden py-4 px-3 custom-scrollbar">
+                    <div className="flex-1 overflow-y-auto py-4 px-3 custom-scrollbar">
                         {renderList('Favorites', Object.values(locations))}
                         {locations.work && renderList('My Projects', locations.work.children)}
                     </div>
 
                     {/* Sidebar Footer (Storage) */}
-                    <div className="pt-4 pb-4 border-t border-white/5 bg-black/10">
-                        <div className="flex items-center gap-2 px-3 text-[10px] text-zinc-500">
-                            <Cloud size={10} />
-                            <span>Storage</span>
+                    <div className="flex-shrink-0 pt-4 pb-6 border-t border-white/5 bg-black/20 backdrop-blur-lg">
+                        <div className="flex items-center justify-between px-3 text-[10px] text-zinc-500">
+                            <div className="flex items-center gap-2">
+                                <Cloud
+                                    size={10}
+                                    className={clsx(
+                                        "transition-colors duration-500",
+                                        isHovered ? "text-blue-400" : "text-zinc-600"
+                                    )}
+                                />
+                                <span className={clsx(
+                                    "font-bold tracking-tight transition-colors duration-500",
+                                    isHovered ? "text-zinc-300" : "text-zinc-500"
+                                )}>
+                                    iCloud
+                                </span>
+                            </div>
+                            <span className="font-mono text-[9px] opacity-40 transition-opacity">
+                                347 GB / 2 TB
+                            </span>
                         </div>
-                        <div className="px-3 mt-1">
-                            <div className="h-0.5 w-full bg-zinc-800 rounded-full overflow-hidden">
-                                <div className="h-full w-[70%] bg-zinc-600" />
+
+                        <div className="px-3 mt-2">
+                            <div className="h-1 w-full bg-zinc-800/50 rounded-full overflow-hidden">
+                                <div
+                                    className={clsx(
+                                        "h-full transition-all duration-1000 ease-out",
+                                        isHovered ? "w-[17%] bg-gradient-to-r from-blue-500 to-cyan-400 shadow-[0_0_8px_rgba(59,130,246,0.5)]" : "w-0 bg-zinc-600"
+                                    )}
+                                />
+                            </div>
+
+                            <div className={clsx(
+                                "flex justify-between items-center mt-2 transition-all duration-700",
+                                isHovered ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1"
+                            )}>
+                                <p className="text-[9px] text-zinc-500 font-medium italic">
+                                    1.65 TB available
+                                </p>
+                                <span className="text-[7px] px-1.5 py-0.5 rounded-full border border-white/10 bg-white/5 text-zinc-400 uppercase font-black">
+                                    Pro
+                                </span>
                             </div>
                         </div>
                     </div>

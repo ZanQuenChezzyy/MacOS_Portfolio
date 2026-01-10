@@ -38,19 +38,19 @@ const navIcons = [
 const dockApps = [
     {
         id: "finder",
-        name: "Portfolio", // was "Finder"
+        name: "Finder", // was "Finder"
         icon: "finder.png",
         canOpen: true,
     },
     {
         id: "safari",
-        name: "Articles", // was "Safari"
+        name: "Safari", // was "Safari"
         icon: "safari.png",
         canOpen: true,
     },
     {
         id: "photos",
-        name: "Gallery", // was "Photos"
+        name: "Photos", // was "Photos"
         icon: "photos.png",
         canOpen: true,
     },
@@ -62,13 +62,13 @@ const dockApps = [
     },
     {
         id: "terminal",
-        name: "Skills", // was "Terminal"
+        name: "Terminal", // was "Terminal"
         icon: "terminal.png",
         canOpen: true,
     },
     {
         id: "trash",
-        name: "Archive", // was "Trash"
+        name: "Trash", // was "Trash"
         icon: "trash.png",
         canOpen: false,
     },

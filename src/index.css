@@ -31,6 +31,50 @@ body {
   @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
 }
 
+@utility window-glass-core {
+  transition: background 500ms ease, border-color 500ms ease,
+    backdrop-filter 500ms ease, box-shadow 500ms ease;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.03) 0%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+  backdrop-filter: blur(40px) saturate(180%) brightness(0.9);
+  -webkit-backdrop-filter: blur(40px) saturate(180%) brightness(0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.6),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+@utility window-glass-hover {
+  @apply border-white/15;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.8),
+    inset 0 1px 2px 0 rgba(255, 255, 255, 0.1);
+}
+
+@utility custom-scrollbar {
+  &::-webkit-scrollbar {
+    @apply w-1.5;
+  }
+  &::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    @apply bg-white/10 rounded-full border-4 border-transparent bg-clip-padding transition-colors;
+    &:hover {
+      @apply bg-red-600/50;
+    }
+  }
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}
+
 @layer base {
   main {
     @apply w-dvw h-dvh overflow-hidden;
@@ -170,206 +214,135 @@ body {
     }
   }
 
+  /* --- 1. GLOBAL WINDOW ELEMENTS --- */
   #window-header {
-    @apply flex items-center justify-between px-4 py-3 rounded-t-lg bg-gray-50 border-b border-gray-200 select-none text-sm text-gray-400;
+    /* Header transparan dengan border tipis di bawah */
+    @apply flex items-center justify-between px-4 py-3 bg-transparent border-b border-white/5 select-none text-[10px] font-bold text-zinc-500 uppercase tracking-widest;
   }
 
+  /* --- 2. THE GLASS FAMILY (Windows) --- */
+  #safari,
+  #terminal,
+  #contact,
+  #finder,
+  #txtfile,
+  #imgfile,
+  #photos {
+    /* Gunakan utilitas core yang sama */
+    @apply window-glass-core absolute overflow-hidden;
+
+    /* OPTIMASI GSAP: Hapus durasi global, gunakan transisi spesifik properti non-transform */
+    transition: background 0.4s ease, border-color 0.4s ease,
+      backdrop-filter 0.4s ease, box-shadow 0.4s ease;
+    will-change: transform, opacity;
+
+    /* HOVER UNIFORM: Semua window berperilaku sama saat di-hover */
+    &:hover {
+      @apply window-glass-hover;
+      /* Glow putih pudar yang konsisten untuk semua window */
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.7),
+        inset 0 1px 2px 0 rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  /* --- 3. SPECIFIC WINDOW TWEAKS --- */
   #safari {
-    /* Ukuran Standar Window 2026 */
-    @apply w-4xl h-[700px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-[28px] overflow-hidden;
+    @apply w-4xl h-[700px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-[28px];
 
-    /* HAPUS background dan backdrop-filter di sini karena kita kendalikan via React State */
-
-    @apply border border-white/[0.1] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.9)];
-
-    /* Efek kilauan di tepi window */
+    /* Efek kilauan tepi (Refraction) */
     &::before {
       content: "";
       @apply absolute inset-0 pointer-events-none rounded-[28px] z-[40];
       box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
-      /* Tambahkan transisi agar kilauan tepi juga halus */
-      @apply transition-opacity duration-500;
-    }
-
-    /* Hilangkan border saat tidak hover jika ingin benar-benar clean */
-    &:not(:hover) {
-      border-color: transparent;
-    }
-
-    .blog::-webkit-scrollbar {
-      @apply w-1;
-    }
-    .blog::-webkit-scrollbar-track {
-      @apply bg-transparent;
-    }
-    .blog::-webkit-scrollbar-thumb {
-      @apply bg-white/10 rounded-full hover:bg-red-600/50 transition-colors;
     }
   }
 
   #terminal {
-    @apply w-xl h-[520px] absolute top-40 left-20 rounded-xl overflow-hidden;
-    @apply border border-white/10 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.8)];
+    @apply w-xl h-[520px] top-40 left-5/12 rounded-xl font-roboto;
+    /* Terminal biasanya lebih gelap (Obsidian Glass) */
+    background: rgba(0, 0, 0, 0.4);
   }
 
   #contact {
-    @apply max-w-2xl absolute top-60 left-5/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply w-[720px] h-[480px] top-60 left-5/12 rounded-[24px];
+    transform: translate(-50%, -50%);
 
-    h2 {
-      @apply font-bold text-sm text-center w-full;
-    }
-
-    h3 {
-      @apply text-xl font-semibold;
-    }
-
-    ul {
-      @apply flex items-center gap-3;
-
-      li {
-        @apply rounded-lg p-3 w-60 hover:-translate-y-0.5 hover:scale-105 origin-center transition-all duration-300;
-
-        a {
-          @apply space-y-5;
-        }
-
-        p {
-          @apply font-semibold text-sm text-white;
-        }
-      }
+    &:hover {
+      @apply window-glass-hover;
+      /* Glow putih pudar yang konsisten untuk semua window */
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.7),
+        inset 0 1px 2px 0 rgba(255, 255, 255, 0.1);
     }
   }
 
+  #finder {
+    @apply w-[750px] h-[450px] top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-[20px];
+  }
+
   #photos {
-    @apply max-w-3xl absolute top-96 left-1/2 -translate-y-1/2 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    /* Menghapus bg-white lama */
+    @apply w-3xl h-[500px] top-96 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl;
 
     .sidebar {
-      @apply w-3/12 flex-none bg-gray-50 border-r border-gray-200 flex flex-col p-5;
+      /* Sidebar transparan lebih gelap dari konten utama */
+      @apply w-3/12 flex-none bg-black/20 border-r border-white/5 flex flex-col p-5;
 
       h2 {
-        @apply text-xs font-medium text-gray-400 mb-1;
+        @apply text-[9px] font-black text-zinc-500 mb-4 uppercase tracking-widest;
       }
 
-      ul {
-        li {
-          @apply flex space-y-1 items-center gap-2 px-3 py-2 rounded-md cursor-pointer transition-colors;
-
-          &:first-child {
-            @apply bg-blue-100 text-blue-700;
-          }
-
-          img {
-            @apply w-4;
-          }
-
-          p {
-            @apply text-sm font-medium;
-          }
+      ul li {
+        @apply flex items-center gap-3 px-3 py-2 rounded-lg text-zinc-400 transition-all duration-300;
+        &:hover {
+          @apply bg-white/5 text-white;
+        }
+        &.active {
+          @apply bg-white/10 text-white shadow-inner;
         }
       }
     }
 
     .gallery {
-      @apply p-5;
-
-      ul {
-        @apply grid grid-cols-5 grid-rows-5 gap-2.5;
-
-        li {
-          img {
-            @apply size-full object-cover rounded-lg;
-          }
-
-          &:first-child {
-            @apply row-start-1 row-span-3 col-start-1 col-span-3;
-          }
-
-          &:nth-child(2) {
-            @apply row-start-1 row-span-3 col-start-4 col-span-2;
-          }
-
-          &:nth-child(3) {
-            @apply row-start-4 row-span-2 col-start-3 col-span-3;
-          }
-
-          &:last-child {
-            @apply row-start-4 row-span-2 col-start-1 col-span-2;
-          }
-        }
-      }
+      @apply p-5 flex-1 bg-transparent overflow-y-auto custom-scrollbar;
     }
   }
 
   #resume {
-    /* Ukuran fixed yang pas untuk dokumen A4 */
-    @apply w-fit h-fit absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden;
-
-    /* Liquid Glass Core Style */
-    @apply rounded-[28px] shadow-[0_60px_120px_-20px_rgba(0,0,0,1)];
-    background: rgba(12, 12, 12, 0.7);
-    backdrop-filter: blur(50px) saturate(180%);
-    -webkit-backdrop-filter: blur(50px) saturate(180%);
+    /* Resume tetap agak solid agar teks PDF terbaca jelas, tapi tetap glass */
+    @apply w-fit h-fit absolute top-2 left-5/12 -translate-x-1/2 -translate-y-1/2 rounded-[28px] overflow-hidden z-50;
+    background: rgba(15, 15, 15, 0.8);
+    backdrop-filter: blur(40px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-
-    .custom-scrollbar::-webkit-scrollbar {
-      @apply w-1.5;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-      @apply bg-red-600/20 rounded-full hover:bg-red-600/50 transition-colors;
-    }
-
-    /* Memastikan PDF Page tidak flat */
-    .react-pdf__Page {
-      @apply transition-transform duration-500 hover:scale-[1.005];
-    }
-  }
-
-  #finder {
-    @apply w-[750px] h-[450px] absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2;
-    @apply rounded-[20px] overflow-hidden;
-    /* Glass Effect */
-    @apply border border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.8)];
-
-    /* Animation Override jika perlu */
-    transition: width 0.3s, height 0.3s;
+    box-shadow: 0 60px 120px -20px rgba(0, 0, 0, 1);
   }
 
   #txtfile {
-    @apply w-[500px] h-[600px] absolute top-1/2 left-[60%] -translate-x-1/2 -translate-y-1/2;
-    @apply rounded-[24px] overflow-hidden;
-    background: rgba(10, 10, 10, 0.6);
-    backdrop-filter: blur(40px) saturate(180%);
-    @apply border border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.9)];
-  }
-
-  /* Custom Scrollbar Logic */
-  .custom-scrollbar::-webkit-scrollbar {
-    @apply w-1; /* Ukuran sangat tipis (4px) agar elegan */
-  }
-
-  .custom-scrollbar::-webkit-scrollbar-track {
-    @apply bg-transparent;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-white/10 rounded-full transition-colors;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    @apply bg-red-600/50;
-  }
-
-  /* Firefox Support */
-  .custom-scrollbar {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+    @apply w-[500px] h-[600px] top-1/2 left-[60%] -translate-x-1/2 -translate-y-1/2 rounded-[24px];
   }
 
   #imgfile {
-    @apply w-auto h-auto min-w-[400px] min-h-[300px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
-    @apply rounded-[18px] overflow-hidden;
-    @apply border border-white/10 shadow-2xl;
-    backdrop-filter: blur(60px);
+    @apply min-w-[400px] min-h-[300px] top-1/2 left-5/12 -translate-x-1/2 -translate-y-1/2 rounded-[18px];
+    /* Image viewer biasanya lebih jernih */
+    backdrop-filter: blur(20px) saturate(150%);
+  }
+
+  /* --- 4. GLOBAL UTILITIES --- */
+
+  .custom-scrollbar {
+    &::-webkit-scrollbar {
+      @apply w-1.5;
+    }
+    &::-webkit-scrollbar-track {
+      @apply bg-transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      @apply bg-white/10 rounded-full border-4 border-transparent bg-clip-padding;
+      &:hover {
+        @apply bg-red-600/50;
+      }
+    }
   }
 
   #home {
