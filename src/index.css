@@ -49,24 +49,25 @@ body {
     }
 
     img {
-        /* Mencegah distorsi pada level CSS */
-        @apply max-w-none block object-contain;
+      /* Mencegah distorsi pada level CSS */
+      @apply max-w-none block object-contain;
     }
-    p, time {
-        @apply antialiased;
+    p,
+    time {
+      @apply antialiased;
     }
 
     /* Override Link Hover Style */
     ul p {
       @apply no-underline; /* Menghapus underline lama */
       position: relative;
-      
+
       /* Animasi garis bawah merah minimalis ala mobil sport */
       &::after {
-        content: '';
+        content: "";
         @apply absolute -bottom-1 left-0 w-0 h-[1px] bg-red-600 transition-all duration-300;
       }
-      
+
       &:hover::after {
         @apply w-full shadow-[0_0_8px_#dc2626];
       }
@@ -76,7 +77,7 @@ body {
       /* Mengubah dari hitam ke putih pudar agar konsisten dengan tema malam */
       @apply text-white/60 font-mono;
     }
-}
+  }
 }
 
 @layer components {
@@ -100,55 +101,58 @@ body {
     @apply absolute bottom-6 left-1/2 -translate-x-1/2 z-[100] select-none max-sm:hidden flex items-end;
 
     .dock-container {
-        @apply relative flex items-end gap-3 px-4 py-2.5 rounded-[24px] transition-all;
-        background: rgba(255, 255, 255, 0.03);
-        backdrop-filter: blur(40px) saturate(200%);
-        -webkit-backdrop-filter: blur(40px) saturate(200%);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        box-shadow: 
-            0 20px 50px rgba(0, 0, 0, 0.3),
-            inset 0 0 20px rgba(255, 255, 255, 0.05);
+      @apply relative flex items-end gap-3 px-4 py-2.5 rounded-[24px] transition-all;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(40px) saturate(200%);
+      -webkit-backdrop-filter: blur(40px) saturate(200%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3),
+        inset 0 0 20px rgba(255, 255, 255, 0.05);
     }
 
     /* Lapisan tambahan di belakang dock untuk efek pembiasan cahaya */
     .dock-blur-layer {
-        @apply absolute inset-0 -m-2 rounded-[30px] -z-10 opacity-50;
-        background: radial-gradient(circle at center, rgba(255,255,255,0.1), transparent);
-        filter: blur(20px);
+      @apply absolute inset-0 -m-2 rounded-[30px] -z-10 opacity-50;
+      background: radial-gradient(
+        circle at center,
+        rgba(255, 255, 255, 0.1),
+        transparent
+      );
+      filter: blur(20px);
     }
 
     .dock-icon-wrapper {
-        @apply relative size-12 3xl:size-16 flex items-center justify-center;
-        will-change: transform;
-        perspective: 1000px;
+      @apply relative size-12 3xl:size-16 flex items-center justify-center;
+      will-change: transform;
+      perspective: 1000px;
     }
 
     .dock-icon-img {
-        @apply w-full h-full object-contain pointer-events-none;
-        /* Memberikan sedikit efek lengkung/3D */
-        transform: translateZ(20px);
+      @apply w-full h-full object-contain pointer-events-none;
+      /* Memberikan sedikit efek lengkung/3D */
+      transform: translateZ(20px);
     }
 
     .active-line {
-        /* Default: Garis pendek dan tidak terlihat */
-        @apply w-0 h-[2px] bg-white/0 rounded-full mt-1.5 transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)];
-        box-shadow: 0 0 10px rgba(255, 255, 255, 0);
-        
-        &.active {
-            /* Saat aktif: Melebar menjadi garis horizontal (-) */
-            @apply w-4 bg-white opacity-100;
-            box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
-        }
+      /* Default: Garis pendek dan tidak terlihat */
+      @apply w-0 h-[2px] bg-white/0 rounded-full mt-1.5 transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)];
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0);
+
+      &.active {
+        /* Saat aktif: Melebar menjadi garis horizontal (-) */
+        @apply w-4 bg-white opacity-100;
+        box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+      }
     }
 
     .active-dot {
-        @apply w-1 h-1 bg-white rounded-full mt-1.5 transition-all duration-500 shadow-[0_0_8px_white];
+      @apply w-1 h-1 bg-white rounded-full mt-1.5 transition-all duration-500 shadow-[0_0_8px_white];
     }
 
     .dock-tooltip-custom {
-        @apply !bg-black/40 !backdrop-blur-xl !text-white !text-[11px] !font-bold !py-1 !px-3 !rounded-lg !border !border-white/10 !shadow-2xl !tracking-wide;
+      @apply !bg-black/40 !backdrop-blur-xl !text-white !text-[11px] !font-bold !py-1 !px-3 !rounded-lg !border !border-white/10 !shadow-2xl !tracking-wide;
     }
-}
+  }
 
   #window-controls {
     @apply flex gap-2;
@@ -171,61 +175,35 @@ body {
   }
 
   #safari {
-  /* Ukuran Standar Window 2026 */
-  @apply w-4xl h-[700px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-[28px] overflow-hidden;
-  
-  /* Liquid Glass Core Styling */
-  background: linear-gradient(135deg, rgba(10, 10, 10, 0.7) 0%, rgba(0, 0, 0, 0.9) 100%);
-  backdrop-filter: blur(50px) saturate(180%);
-  -webkit-backdrop-filter: blur(50px) saturate(180%);
-  
-  @apply border border-white/[0.1] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.9)];
+    /* Ukuran Standar Window 2026 */
+    @apply w-4xl h-[700px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-[28px] overflow-hidden;
 
-  .blog::-webkit-scrollbar {
-    @apply w-1;
-  }
-  .blog::-webkit-scrollbar-track {
-    @apply bg-transparent;
-  }
-  .blog::-webkit-scrollbar-thumb {
-    @apply bg-white/10 rounded-full hover:bg-red-600/50 transition-colors;
-  }
+    /* HAPUS background dan backdrop-filter di sini karena kita kendalikan via React State */
+    
+    @apply border border-white/[0.1] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.9)];
 
-  /* Refractive light on window edges */
-  &::before {
-    content: "";
-    @apply absolute inset-0 pointer-events-none rounded-[28px] z-[40];
-    box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
-  }
+    /* Efek kilauan di tepi window */
+    &::before {
+      content: "";
+      @apply absolute inset-0 pointer-events-none rounded-[28px] z-[40];
+      box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
+      /* Tambahkan transisi agar kilauan tepi juga halus */
+      @apply transition-opacity duration-500;
+    }
+
+    /* Hilangkan border saat tidak hover jika ingin benar-benar clean */
+    &:not(:hover) {
+        border-color: transparent;
+    }
+
+    .blog::-webkit-scrollbar { @apply w-1; }
+    .blog::-webkit-scrollbar-track { @apply bg-transparent; }
+    .blog::-webkit-scrollbar-thumb { @apply bg-white/10 rounded-full hover:bg-red-600/50 transition-colors; }
 }
 
   #terminal {
-    @apply w-xl h-[520px] absolute top-40 left-20 rounded-xl overflow-hidden;
-    
-    /* Liquid Glass 2026 Effect */
-    background: linear-gradient(135deg, rgba(10, 10, 10, 0.4) 0%, rgba(0, 0, 0, 0.6) 100%);
-    backdrop-filter: blur(40px) saturate(150%);
-    -webkit-backdrop-filter: blur(40px) saturate(150%);
-    
-    @apply border border-white/[0.08] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.8)];
-
-    /* Efek scanline yang lebih tipis */
-    &::after {
-        content: "";
-        @apply absolute inset-0 pointer-events-none opacity-[0.02] z-50;
-        background: linear-gradient(rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.1) 50%);
-        background-size: 100% 4px;
-    }
-
-    .custom-scrollbar::-webkit-scrollbar {
-        @apply w-1;
-    }
-    .custom-scrollbar::-webkit-scrollbar-track {
-        @apply bg-transparent;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-        @apply bg-white/10 rounded-full hover:bg-red-600/50;
-    }
+  @apply w-xl h-[520px] absolute top-40 left-20 rounded-xl overflow-hidden;
+  @apply border border-white/10 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.8)];
 }
 
   #contact {
@@ -319,7 +297,7 @@ body {
   #resume {
     /* Ukuran fixed yang pas untuk dokumen A4 */
     @apply w-fit h-fit absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden;
-    
+
     /* Liquid Glass Core Style */
     @apply rounded-[28px] shadow-[0_60px_120px_-20px_rgba(0,0,0,1)];
     background: rgba(12, 12, 12, 0.7);
@@ -328,87 +306,65 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.1);
 
     .custom-scrollbar::-webkit-scrollbar {
-        @apply w-1.5;
+      @apply w-1.5;
     }
     .custom-scrollbar::-webkit-scrollbar-thumb {
-        @apply bg-red-600/20 rounded-full hover:bg-red-600/50 transition-colors;
+      @apply bg-red-600/20 rounded-full hover:bg-red-600/50 transition-colors;
     }
 
     /* Memastikan PDF Page tidak flat */
     .react-pdf__Page {
-        @apply transition-transform duration-500 hover:scale-[1.005];
+      @apply transition-transform duration-500 hover:scale-[1.005];
     }
-}
+  }
 
   #finder {
-    @apply absolute w-3xl left-40 top-20 shadow-2xl drop-shadow-2xl overflow-hidden rounded-xl;
-
-    .sidebar {
-      @apply w-48 bg-gray-50 border-r border-gray-200 flex flex-col p-5 space-y-3;
-
-      h3 {
-        @apply text-xs font-medium text-gray-400 mb-1;
-      }
-
-      ul {
-        @apply space-y-1;
-
-        .active {
-          @apply bg-blue-100 text-blue-700;
-        }
-
-        .not-active {
-          @apply text-gray-700 hover:bg-gray-200;
-        }
-
-        li {
-          @apply flex items-center gap-2 px-3 py-2 rounded-md cursor-pointer transition-colors;
-        }
-      }
-    }
-
-    .content {
-      @apply flex-1 p-8 bg-white max-w-2xl relative;
-
-      li {
-        @apply absolute flex items-center flex-col gap-3;
-
-        img {
-          @apply object-contain object-center size-16 relative group-hover:scale-105;
-        }
-
-        p {
-          @apply text-sm text-center font-medium w-40;
-        }
-      }
-    }
-  }
+    @apply w-[750px] h-[450px] absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2;
+    @apply rounded-[20px] overflow-hidden;
+    /* Glass Effect */
+    @apply border border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.8)];
+    
+    /* Animation Override jika perlu */
+    transition: width 0.3s, height 0.3s;
+}
 
   #txtfile {
-    @apply w-md absolute top-36 right-32 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply w-[500px] h-[600px] absolute top-1/2 left-[60%] -translate-x-1/2 -translate-y-1/2;
+    @apply rounded-[24px] overflow-hidden;
+    background: rgba(10, 10, 10, 0.6);
+    backdrop-filter: blur(40px) saturate(180%);
+    @apply border border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.9)];
+}
 
-    h2 {
-      @apply font-bold text-sm text-center w-full;
-    }
-  }
+/* Custom Scrollbar Logic */
+.custom-scrollbar::-webkit-scrollbar {
+    @apply w-1; /* Ukuran sangat tipis (4px) agar elegan */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-white/10 rounded-full transition-colors;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-red-600/50;
+}
+
+/* Firefox Support */
+.custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}
 
   #imgfile {
-    @apply w-xl absolute top-40 left-2/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
-
-    #window-header {
-      p {
-        @apply font-bold text-[#5f6266];
-      }
-    }
-
-    .preview {
-      @apply p-2 bg-gray-200 max-h-[70vh];
-
-      img {
-        @apply w-full h-fit object-contain object-center;
-      }
-    }
-  }
+    @apply w-auto h-auto min-w-[400px] min-h-[300px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+    @apply rounded-[18px] overflow-hidden;
+    @apply border border-white/10 shadow-2xl;
+    backdrop-filter: blur(60px);
+}
 
   #home {
     @apply relative z-0 max-sm:hidden;

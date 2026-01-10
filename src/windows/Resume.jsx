@@ -16,18 +16,18 @@ const Resume = () => {
         <div className="relative h-full flex flex-col font-sans overflow-hidden">
 
             {/* --- LIQUID GLASS HEADER --- */}
-            <div id="window-header" className="relative z-30 bg-white/[0.01] backdrop-blur-3xl border-b border-white/[0.08] px-4 py-3 flex items-center shadow-2xl">
+            <div id="window-header" className="relative z-30 bg-white/1 backdrop-blur-3xl border-b border-white/8 px-4 py-3 flex items-center shadow-2xl">
                 <div className="flex items-center gap-6">
                     <WindowControls target="resume" />
                 </div>
 
                 {/* Center Pill: Document Title */}
                 <div className="flex-1 flex justify-center">
-                    <div className="group flex items-center gap-3 bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-1.5 shadow-lg transition-all duration-500">
+                    <div className="group flex items-center gap-3 bg-white/1 border border-white/8 rounded-xl px-4 py-1.5 shadow-lg transition-all duration-500">
                         <FileText size={12} className="text-red-500 drop-shadow-[0_0_8px_rgba(239,68,68,0.4)]" />
                         <div className="flex flex-col items-center">
                             <span className="text-[10px] tracking-[0.2em] font-black uppercase text-white/60">Resume.pdf</span>
-                            <span className="text-[7px] tracking-[0.1em] text-white/20 uppercase font-bold">Standard A4 Document</span>
+                            <span className="text-[7px] tracking-widest text-white/20 uppercase font-bold">Standard A4 Document</span>
                         </div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@ const Resume = () => {
             </div>
 
             {/* Finishing Touch: Inner Glow Border */}
-            <div className="absolute inset-0 border border-white/[0.05] rounded-[28px] pointer-events-none z-50 shadow-inner" />
+            <div className="absolute inset-0 border border-white/5 rounded-[28px] pointer-events-none z-50 shadow-inner" />
         </div>
     )
 }

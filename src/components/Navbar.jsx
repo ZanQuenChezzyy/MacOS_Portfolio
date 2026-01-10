@@ -19,7 +19,7 @@ const Navbar = () => {
                             className="h-5 w-auto object-contain brightness-200 group-hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.8)] transition-all duration-300"
                         />
                         <p className="text-[12px] font-black tracking-tight uppercase text-white/90">
-                            Andereyan
+                            Andereyan Muhammat
                         </p>
                     </div>
 
