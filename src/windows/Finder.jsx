@@ -22,7 +22,6 @@ const Finder = () => {
     }
 
     // --- HELPER COMPONENTS ---
-
     const SidebarItem = ({ item }) => {
         const isActive = item.id === activeLocation.id;
         return (
@@ -31,7 +30,7 @@ const Finder = () => {
                 className={clsx(
                     "flex items-center gap-3 px-3 py-1.5 rounded-lg text-[11px] cursor-pointer transition-all duration-200 group select-none",
                     isActive
-                        ? "bg-white/10 text-white font-semibold shadow-inner"
+                        ? "bg-blue-500/20 text-blue-400 font-semibold shadow-inner border-blue-500/10"
                         : "text-zinc-400 hover:bg-white/5 hover:text-zinc-100"
                 )}
             >
@@ -69,8 +68,6 @@ const Finder = () => {
             onMouseLeave={() => setIsHovered(false)}
             className={clsx(
                 "relative h-full flex flex-col font-sans overflow-hidden transition-all duration-500 ease-in-out rounded-[inherit]",
-                // Jika di-hover: Blur tebal + Background gelap
-                // Jika keluar: Transparan + Blur tipis (atau tanpa blur)
                 isHovered
                     ? "bg-black/40 backdrop-blur-3xl saturate-150"
                     : "bg-transparent backdrop-blur-none"
@@ -106,7 +103,7 @@ const Finder = () => {
 
                 {/* SIDEBAR (Clean Implementation) */}
                 <div className={clsx(
-                    'w-48 flex flex-col border-r border-white/5 transition-all duration-500 h-full', // Tambahkan h-full
+                    'w-48 flex flex-col border-r border-white/5 transition-all duration-500 h-full',
                     isHovered ? "bg-black/20 backdrop-blur-md" : "bg-transparent backdrop-blur-none"
                 )}>
 
@@ -117,7 +114,7 @@ const Finder = () => {
                     </div>
 
                     {/* Sidebar Footer (Storage) */}
-                    <div className="flex-shrink-0 pt-4 pb-6 border-t border-white/5 bg-black/20 backdrop-blur-lg">
+                    <div className="shrink-0 pt-4 pb-6 border-t border-white/5 bg-black/20 backdrop-blur-lg">
                         <div className="flex items-center justify-between px-3 text-[10px] text-zinc-500">
                             <div className="flex items-center gap-2">
                                 <Cloud
@@ -144,7 +141,7 @@ const Finder = () => {
                                 <div
                                     className={clsx(
                                         "h-full transition-all duration-1000 ease-out",
-                                        isHovered ? "w-[17%] bg-gradient-to-r from-blue-500 to-cyan-400 shadow-[0_0_8px_rgba(59,130,246,0.5)]" : "w-0 bg-zinc-600"
+                                        isHovered ? "w-[17%] bg-linear-to-r from-blue-500 to-cyan-400 shadow-[0_0_8px_rgba(59,130,246,0.5)]" : "w-0 bg-zinc-600"
                                     )}
                                 />
                             </div>
@@ -200,7 +197,7 @@ const Finder = () => {
             {/* Status Bar */}
             <div className="h-6 bg-black/40 border-t border-white/5 flex items-center px-4 justify-between text-[9px] text-zinc-500">
                 <span>{activeLocation.children.length} items</span>
-                <span>Available: 240 GB</span>
+                <span>Available: 1.65 TB</span>
             </div>
         </div>
     )

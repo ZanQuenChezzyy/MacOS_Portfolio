@@ -225,6 +225,7 @@ body {
   #terminal,
   #contact,
   #finder,
+  #resume,
   #txtfile,
   #imgfile,
   #photos {
@@ -311,11 +312,7 @@ body {
 
   #resume {
     /* Resume tetap agak solid agar teks PDF terbaca jelas, tapi tetap glass */
-    @apply w-fit h-fit absolute top-2 left-5/12 -translate-x-1/2 -translate-y-1/2 rounded-[28px] overflow-hidden z-50;
-    background: rgba(15, 15, 15, 0.8);
-    backdrop-filter: blur(40px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 60px 120px -20px rgba(0, 0, 0, 1);
+    @apply w-fit h-fit absolute top-6/12 left-5/12 -translate-x-1/2 -translate-y-1/2 rounded-[28px] overflow-hidden z-50;
   }
 
   #txtfile {

@@ -1,5 +1,5 @@
 import { Dock, Navbar, Welcome } from "#components"
-import { Contact, Finder, Image, Resume, Safari, Terminal, Text } from "#windows";
+import { Contact, Finder, Image, Photos, Resume, Safari, Terminal, Text } from "#windows";
 
 const App = () => {
   return (
@@ -15,6 +15,7 @@ const App = () => {
       <Text />
       <Image />
       <Contact />
+      <Photos />
     </main>
   )
 }

@@ -66,12 +66,6 @@ const dockApps = [
         icon: "terminal.png",
         canOpen: true,
     },
-    {
-        id: "trash",
-        name: "Trash", // was "Trash"
-        icon: "trash.png",
-        canOpen: false,
-    },
 ];
 
 const blogPosts = [
@@ -189,19 +183,43 @@ const gallery = [
     {
         id: 1,
         img: "/images/gal1.png",
+        location: "Tokyo, Japan",
+        date: "12 Oct 2025",
+        category: "Library",
+        isFavorite: true
     },
     {
         id: 2,
         img: "/images/gal2.png",
+        location: "Bromo, Indonesia",
+        date: "15 Nov 2025",
+        category: "Library",
+        isFavorite: false
     },
     {
         id: 3,
         img: "/images/gal3.png",
+        location: "San Francisco, USA",
+        date: "01 Jan 2026",
+        category: "Library",
+        isFavorite: true
     },
     {
         id: 4,
         img: "/images/gal4.png",
+        location: "Paris, France",
+        date: "20 Jan 2026",
+        category: "Library",
+        isFavorite: false
     },
+    {
+        id: 5,
+        img: "/images/gal1.png", // Contoh tambahan agar grid lebih penuh
+        location: "Seoul, Korea",
+        date: "05 Feb 2026",
+        category: "Library",
+        isFavorite: true
+    }
 ];
 
 export {
