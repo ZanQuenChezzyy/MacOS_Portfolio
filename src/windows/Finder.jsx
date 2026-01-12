@@ -6,14 +6,13 @@ import useWindowStore from '#store/window'
 import clsx from 'clsx'
 import { Search, Folder, Cloud } from 'lucide-react'
 import React, { useState } from 'react'
+import { LayoutGroup, motion as Motion } from 'framer-motion'
 
 const Finder = () => {
     const { openWindow } = useWindowStore()
     const { activeLocation, setActiveLocation } = useLocationStore();
-
     const [isHovered, setIsHovered] = useState(false);
 
-    // --- ACTIONS ---
     const openItem = (item) => {
         if (item.fileType === 'pdf') return openWindow('resume');
         if (item.kind === 'folder') return setActiveLocation(item);
@@ -21,41 +20,59 @@ const Finder = () => {
         openWindow(`${item.fileType}${item.kind}`, item);
     }
 
-    // --- HELPER COMPONENTS ---
     const SidebarItem = ({ item }) => {
         const isActive = item.id === activeLocation.id;
+
         return (
-            <li
+            <Motion.li
+                // Tambahkan layout agar Motion tahu li ini bagian dari perhitungan posisi
+                layout
                 onClick={() => setActiveLocation(item)}
                 className={clsx(
-                    "flex items-center gap-3 px-3 py-1.5 rounded-lg text-[11px] cursor-pointer transition-all duration-200 group select-none",
-                    isActive
-                        ? "bg-blue-500/20 text-blue-400 font-semibold shadow-inner border-blue-500/10"
-                        : "text-zinc-400 hover:bg-white/5 hover:text-zinc-100"
+                    "relative flex items-center gap-3 px-3 py-1.5 rounded-lg text-[11px] cursor-pointer transition-colors duration-200 group select-none",
+                    isActive ? "text-blue-400 font-semibold" : "text-zinc-400 hover:text-zinc-100"
                 )}
             >
+                {/* INDIKATOR AKTIF */}
+                {isActive && (
+                    <Motion.div
+                        layoutId="sidebar-active-pill"
+                        // Penting: Pastikan tidak ada duplikasi ID pill di render yang sama
+                        className="absolute inset-0 bg-blue-500/20 rounded-lg border border-blue-500/10 shadow-inner z-0"
+                        transition={{
+                            type: "spring",
+                            stiffness: 380,
+                            damping: 30,
+                        }}
+                    />
+                )}
+
                 <img
                     src={item.icon}
-                    className={clsx("w-4 h-4 opacity-70 group-hover:opacity-100 transition-opacity", isActive && "opacity-100")}
+                    className={clsx(
+                        "w-4 h-4 opacity-70 group-hover:opacity-100 transition-opacity z-10",
+                        isActive && "opacity-100"
+                    )}
                     alt={item.name}
                 />
-                <span className="truncate tracking-wide">{item.name}</span>
-            </li>
-        )
+                <Motion.span layout="position" className="relative z-10 truncate tracking-wide">
+                    {item.name}
+                </Motion.span>
+            </Motion.li>
+        );
     };
 
-    // Fungsi Render List agar kode Sidebar lebih bersih
     const renderList = (title, items) => {
         if (!items || items.length === 0) return null;
-
         return (
             <div className="mb-6">
                 <h3 className="px-3 text-[9px] font-black text-zinc-600 uppercase tracking-widest mb-2">
                     {title}
                 </h3>
+                {/* Pastikan UL tidak memiliki layoutId agar tidak bingung dengan pill */}
                 <ul className="space-y-0.5">
                     {items.map((item) => (
-                        <SidebarItem key={item.id || item.name} item={item} />
+                        <SidebarItem key={item.id} item={item} />
                     ))}
                 </ul>
             </div>
@@ -68,13 +85,9 @@ const Finder = () => {
             onMouseLeave={() => setIsHovered(false)}
             className={clsx(
                 "relative h-full flex flex-col font-sans overflow-hidden transition-all duration-500 ease-in-out rounded-[inherit]",
-                isHovered
-                    ? "bg-black/40 backdrop-blur-3xl saturate-150"
-                    : "bg-transparent backdrop-blur-none"
+                isHovered ? "bg-black/40 backdrop-blur-3xl saturate-150" : "bg-transparent backdrop-blur-none"
             )}
         >
-
-            {/* --- FINDER HEADER --- */}
             <div id='window-header' className={clsx(
                 "relative z-30 flex items-center justify-between px-4 py-3 border-b border-white/5 transition-colors duration-500",
                 isHovered ? "bg-white/2" : "bg-transparent"
@@ -82,14 +95,12 @@ const Finder = () => {
                 <div className="flex items-center gap-6 w-1/4">
                     <WindowControls target="finder" />
                 </div>
-
                 <div className="flex items-center gap-2">
                     <div className="flex items-center px-2 py-1 bg-black/20 rounded-md border border-white/5">
-                        <Folder size={10} className="text-zinc-500 mr-2" />
+                        <Folder size={10} className="text-blue-500 mr-2" />
                         <span className="text-[10px] font-bold text-zinc-300 uppercase tracking-widest">{activeLocation.name}</span>
                     </div>
                 </div>
-
                 <div className="w-1/4 flex justify-end">
                     <div className="flex items-center gap-2 px-3 py-1 bg-black/20 border border-white/5 rounded-full text-zinc-500">
                         <Search size={10} />
@@ -98,94 +109,57 @@ const Finder = () => {
                 </div>
             </div>
 
-            {/* --- SPLIT VIEW BODY --- */}
             <div className='flex flex-1 overflow-hidden relative'>
-
-                {/* SIDEBAR (Clean Implementation) */}
                 <div className={clsx(
                     'w-48 flex flex-col border-r border-white/5 transition-all duration-500 h-full',
                     isHovered ? "bg-black/20 backdrop-blur-md" : "bg-transparent backdrop-blur-none"
                 )}>
-
-                    {/* List Area */}
                     <div className="flex-1 overflow-y-auto py-4 px-3 custom-scrollbar">
-                        {renderList('Favorites', Object.values(locations))}
-                        {locations.work && renderList('My Projects', locations.work.children)}
+                        {/* LayoutGroup diletakkan di sini. 
+                          PENTING: Jangan gunakan AnimatePresence di sekitar SidebarItem jika ingin 
+                          shared layout transition berjalan antar item.
+                        */}
+                        <LayoutGroup>
+                            {renderList('Favorites', Object.values(locations))}
+                            {locations.work && renderList('My Projects', locations.work.children)}
+                        </LayoutGroup>
                     </div>
 
-                    {/* Sidebar Footer (Storage) */}
                     <div className="shrink-0 pt-4 pb-6 border-t border-white/5 bg-black/20 backdrop-blur-lg">
                         <div className="flex items-center justify-between px-3 text-[10px] text-zinc-500">
                             <div className="flex items-center gap-2">
-                                <Cloud
-                                    size={10}
-                                    className={clsx(
-                                        "transition-colors duration-500",
-                                        isHovered ? "text-blue-400" : "text-zinc-600"
-                                    )}
-                                />
-                                <span className={clsx(
-                                    "font-bold tracking-tight transition-colors duration-500",
-                                    isHovered ? "text-zinc-300" : "text-zinc-500"
-                                )}>
-                                    iCloud
-                                </span>
+                                <Cloud size={10} className={clsx("transition-colors duration-500", isHovered ? "text-blue-400" : "text-zinc-600")} />
+                                <span className={clsx("font-bold tracking-tight transition-colors duration-500", isHovered ? "text-zinc-300" : "text-zinc-500")}>iCloud</span>
                             </div>
-                            <span className="font-mono text-[9px] opacity-40 transition-opacity">
-                                347 GB / 2 TB
-                            </span>
+                            <span className="font-mono text-[9px] opacity-40">347 GB / 2 TB</span>
                         </div>
-
                         <div className="px-3 mt-2">
                             <div className="h-1 w-full bg-zinc-800/50 rounded-full overflow-hidden">
-                                <div
+                                <Motion.div
+                                    layout
                                     className={clsx(
                                         "h-full transition-all duration-1000 ease-out",
                                         isHovered ? "w-[17%] bg-linear-to-r from-blue-500 to-cyan-400 shadow-[0_0_8px_rgba(59,130,246,0.5)]" : "w-0 bg-zinc-600"
                                     )}
                                 />
                             </div>
-
-                            <div className={clsx(
-                                "flex justify-between items-center mt-2 transition-all duration-700",
-                                isHovered ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1"
-                            )}>
-                                <p className="text-[9px] text-zinc-500 font-medium italic">
-                                    1.65 TB available
-                                </p>
-                                <span className="text-[7px] px-1.5 py-0.5 rounded-full border border-white/10 bg-white/5 text-zinc-400 uppercase font-black">
-                                    Pro
-                                </span>
-                            </div>
                         </div>
                     </div>
                 </div>
 
-                {/* MAIN CONTENT (Grid) */}
                 <div className='flex-1 overflow-y-auto custom-scrollbar p-6'>
                     <ul className='grid grid-cols-4 gap-4 auto-rows-min'>
                         {activeLocation?.children.map((item) => (
                             <li
                                 key={item.id}
-                                className={clsx(
-                                    "group flex flex-col items-center gap-3 p-4 rounded-xl transition-all duration-200 cursor-pointer",
-                                    "hover:bg-white/5 border border-transparent hover:border-white/5"
-                                )}
+                                className="group flex flex-col items-center gap-3 p-4 rounded-xl transition-all duration-200 cursor-pointer hover:bg-white/5 border border-transparent hover:border-white/5"
                                 onClick={() => openItem(item)}
                             >
                                 <div className="relative">
-                                    <img
-                                        src={item.icon}
-                                        className='w-12 h-12 object-contain drop-shadow-lg group-hover:scale-110 transition-transform duration-300'
-                                        alt={item.name}
-                                    />
+                                    <img src={item.icon} className='w-12 h-12 object-contain drop-shadow-lg group-hover:scale-110 transition-transform duration-300' alt={item.name} />
                                     <div className="absolute -bottom-2 inset-x-0 h-4 bg-linear-to-b from-white/10 to-transparent opacity-0 group-hover:opacity-100 blur-md transition-opacity" />
                                 </div>
-
-                                <p className={clsx(
-                                    'text-[10px] text-center font-medium max-w-full truncate px-2 py-0.5 rounded',
-                                    'text-zinc-300 group-hover:text-white group-hover:bg-red-600/80 transition-colors'
-                                )}>
+                                <p className='text-[10px] text-center font-medium max-w-full truncate px-2 py-0.5 rounded text-zinc-300 group-hover:text-white group-hover:bg-blue-600/80 transition-colors'>
                                     {item.name}
                                 </p>
                             </li>
@@ -194,7 +168,6 @@ const Finder = () => {
                 </div>
             </div>
 
-            {/* Status Bar */}
             <div className="h-6 bg-black/40 border-t border-white/5 flex items-center px-4 justify-between text-[9px] text-zinc-500">
                 <span>{activeLocation.children.length} items</span>
                 <span>Available: 1.65 TB</span>

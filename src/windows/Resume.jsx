@@ -38,28 +38,10 @@ const Resume = () => {
                     <WindowControls target="resume" />
                 </div>
 
-                {/* Center Pill: Title UI */}
-                {/* Center Pill: Title UI */}
                 <div className="flex items-center gap-2">
-                    <div className={clsx(
-                        "flex items-center px-3 py-1 rounded-md border transition-all duration-500",
-                        isHovered
-                            ? "bg-white/5 border-white/10 shadow-[0_0_15px_rgba(255,255,255,0.03)]"
-                            : "bg-black/20 border-white/5 opacity-60"
-                    )}>
-                        <FileText
-                            size={10}
-                            className={clsx(
-                                "mr-2 transition-all duration-500",
-                                isHovered
-                                    ? "text-zinc-200 drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]"
-                                    : "text-zinc-500"
-                            )}
-                        />
-                        <span className={clsx(
-                            "text-[10px] font-bold uppercase tracking-[0.15em] transition-colors duration-500",
-                            isHovered ? "text-zinc-200" : "text-zinc-500"
-                        )}>
+                    <div className="flex items-center px-2 py-1 bg-black/20 rounded-md border border-white/5">
+                        <FileText size={10} className="text-blue-500 mr-2" />
+                        <span className="text-[10px] font-bold text-zinc-300 uppercase tracking-widest">
                             Curriculum-Vitae.pdf
                         </span>
                     </div>

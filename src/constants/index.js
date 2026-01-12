@@ -182,43 +182,59 @@ const photosLinks = [
 const gallery = [
     {
         id: 1,
-        img: "/images/gal1.png",
-        location: "Tokyo, Japan",
+        img: "/images/photos/photos-1.JPG",
+        location: "Samarinda, Indonesia",
         date: "12 Oct 2025",
         category: "Library",
         isFavorite: true
     },
     {
         id: 2,
-        img: "/images/gal2.png",
-        location: "Bromo, Indonesia",
+        img: "/images/photos/photos-2.JPG",
+        location: "Samarinda, Indonesia",
         date: "15 Nov 2025",
-        category: "Library",
-        isFavorite: false
-    },
-    {
-        id: 3,
-        img: "/images/gal3.png",
-        location: "San Francisco, USA",
-        date: "01 Jan 2026",
         category: "Library",
         isFavorite: true
     },
     {
+        id: 3,
+        img: "/images/photos/photos-3.JPG",
+        location: "Pupuk Kaltim, Bontang",
+        date: "01 Jan 2026",
+        category: "Memories",
+        isFavorite: false
+    },
+    {
         id: 4,
-        img: "/images/gal4.png",
-        location: "Paris, France",
+        img: "/images/photos/photos-4.JPG",
+        location: "Badak LNG, Bontang",
         date: "20 Jan 2026",
-        category: "Library",
+        category: "Memories",
         isFavorite: false
     },
     {
         id: 5,
-        img: "/images/gal1.png", // Contoh tambahan agar grid lebih penuh
-        location: "Seoul, Korea",
+        img: "/images/photos/photos-5.JPG",
+        location: "Badak LNG, Bontang",
         date: "05 Feb 2026",
-        category: "Library",
+        category: "Memories",
         isFavorite: true
+    },
+    {
+        id: 6,
+        img: "/images/photos/photos-6.JPG",
+        location: "Badak LNG, Bontang",
+        date: "05 Feb 2026",
+        category: "Memories",
+        isFavorite: false
+    },
+    {
+        id: 7,
+        img: "/images/photos/photos-7.JPG",
+        location: "Badak LNG, Bontang",
+        date: "05 Feb 2026",
+        category: "Memories",
+        isFavorite: false
     }
 ];
 
@@ -415,7 +431,7 @@ const ABOUT_LOCATION = {
             kind: "file",
             fileType: "img",
             position: "top-10 left-5",
-            imageUrl: "/images/adrian.jpg",
+            imageUrl: "/images/photos/profile.jpg",
         },
         {
             id: 2,
@@ -424,33 +440,34 @@ const ABOUT_LOCATION = {
             kind: "file",
             fileType: "img",
             position: "top-28 right-72",
-            imageUrl: "/images/adrian-2.jpg",
+            imageUrl: "/images/photos/photos-1.JPG",
         },
         {
             id: 3,
-            name: "conference-me.png",
+            name: "badak-lng.png",
             icon: "/images/image.png",
             kind: "file",
             fileType: "img",
             position: "top-52 left-80",
-            imageUrl: "/images/adrian-3.jpeg",
+            imageUrl: "/images/photos/photos-4.JPG",
         },
         {
-            id: 4,
-            name: "about-me.txt",
-            icon: "/images/txt.png",
-            kind: "file",
-            fileType: "txt",
-            position: "top-60 left-5",
-            subtitle: "Meet the Developer Behind the Code",
-            image: "/images/adrian.jpg",
-            description: [
-                "Hey! I’m Adrian 👋, a web developer who enjoys building sleek, interactive websites that actually work well.",
-                "I specialize in JavaScript, React, and Next.js—and I love making things feel smooth, fast, and just a little bit delightful.",
-                "I’m big on clean UI, good UX, and writing code that doesn’t need a search party to debug.",
-                "Outside of dev work, you'll find me tweaking layouts at 2AM, sipping overpriced coffee, or impulse-buying gadgets I absolutely convinced myself I needed 😅",
-            ],
-        },
+            "id": 4,
+            "name": "about-me.txt",
+            "icon": "/images/txt.png",
+            "kind": "file",
+            "fileType": "txt",
+            "position": "top-60 left-5",
+            "subtitle": "Full-Stack Developer | Data Analyst",
+            "image": "/images/photos/profile.jpg",
+            "description": [
+                "Hi, I'm Andereyan Muhammat. I am a developer with a high passion for continuous innovation and building practical digital solutions that are intuitive and user-centered.",
+                "With a solid foundation in Information Technology from STITEK Bontang, I specialize in Full-Stack Development, Database Design, and Data Analysis, focusing on technical quality and impactful results.",
+                "My professional journey includes significant roles at Badak LNG, where I designed and developed the Information Technology Service Center (ITSC) and built applications for IT auditing. I also have experience at PT Pupuk Kalimantan Timur, optimizing warehouse IT operations and supporting material flow systems.",
+                "I thrive on problem-solving, critical thinking, and attention to detail. Whether it's tweaking a Laravel backend, troubleshooting hardware, or ensuring network reliability, I aim to create technology that genuinely helps people and organizations.",
+                "Based in Bontang, East Borneo, I am dedicated to evolving as a professional who doesn't just write code, but creates meaningful digital environments for the community."
+            ]
+        }
     ],
 };
 

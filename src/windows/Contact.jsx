@@ -30,7 +30,7 @@ const Contact = () => {
 
                 <div className="flex items-center gap-2">
                     <div className="flex items-center px-2 py-1 bg-black/20 rounded-md border border-white/5">
-                        <Mail size={10} className="text-zinc-500 mr-2" />
+                        <Mail size={10} className="text-blue-500 mr-2" />
                         <span className="text-[10px] font-bold text-zinc-300 uppercase tracking-widest">My Contact</span>
                     </div>
                 </div>
